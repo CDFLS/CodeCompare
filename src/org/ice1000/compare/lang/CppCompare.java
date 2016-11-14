@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Hard coded C++ preserved words
  */
-public class CWithClassesCompare extends AbstractCompare {
+public class CppCompare extends AbstractCompare {
 
 	/**
 	 * C++保留字
@@ -31,7 +31,7 @@ public class CWithClassesCompare extends AbstractCompare {
 	}
 
 	@SuppressWarnings("WeakerAccess")
-	public CWithClassesCompare() {
+	public CppCompare() {
 		super();
 	}
 
@@ -43,7 +43,7 @@ public class CWithClassesCompare extends AbstractCompare {
 	 */
 	@SuppressWarnings("unused")
 	public static void oldMain() throws IOException {
-		CWithClassesCompare cmp = new CWithClassesCompare();
+		CppCompare cmp = new CppCompare();
 		File dic = new File(".\\AllSubmits");
 		String names[] = {"1400.cpp", "1410.cpp",};
 		for (String name : names) {

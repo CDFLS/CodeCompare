@@ -6,14 +6,10 @@ package org.ice1000.compare.data;
  * @author ice1000
  */
 public class NameCodeDataHolder {
-	public static final int LANGUAGE_C_PLUS_PLUS = 0x00;
-	public static final int LANGUAGE_JAVA = 0x01;
-	public static final int LANGUAGE_PASCAL = 0x02;
-
 	public String code, name;
-	public int language;
+	public String language;
 
-	public NameCodeDataHolder(String code, String name, int language) {
+	public NameCodeDataHolder(String code, String name, String language) {
 		this.code = code;
 		this.name = name;
 		this.language = language;

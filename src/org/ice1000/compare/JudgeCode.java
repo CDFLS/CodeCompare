@@ -30,8 +30,8 @@ public class JudgeCode {
 		label.setBackground(new Color(0x2B2B2B));
 		label.setForeground(Color.WHITE);
 		HashMap<String, ArrayList<NameCodeDataHolder>> sources = new HashMap<>();
-		new JFrame("Comparison by ice1000, for C++ only") {{
-			setSize(500, 500);
+		new JFrame("Comparison by ice1000") {{
+			setSize(640, 640);
 			setLayout(new BorderLayout());
 			add(new JScrollPane(label), BorderLayout.CENTER);
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -76,6 +76,7 @@ public class JudgeCode {
 			sources.forEach((string, codes) -> {
 				sim.clear();
 				label.append("\tFile Name :" + string + "\n");
+				label.append("\tLanguage :" + comparorChooser.chooseLanguage(string) + "\n");
 				for (int i = 0; i < codes.size(); i++) {
 					for (int j = i + 1; j < codes.size(); j++) {
 						sim.add(new SimDataHolder(
@@ -100,10 +101,10 @@ public class JudgeCode {
 				int endSize = sim.size();
 				sim.forEach(i -> {
 					label.append("\t\t【" + i.name1 + ", " + i.name2 + "】 ==> " + i.sim + "\n");
-					if (i.sim >= 0.9999999999) label.append("\t↑这个是直接复制的\n");
-					else if (i.sim >= 0.75) label.append("\t↑嗨呀 这两份代码有嫌疑\n");
+					if (i.sim >= 0.9999999999) label.append("\t\t↑这个是直接复制的\n");
+					else if (i.sim >= 0.75) label.append("\t\t↑嗨呀 这两份代码有嫌疑\n");
 				});
-				label.append("  相似度小于 " + SIMILARITY_MINIMUM +
+				label.append("\t相似度小于 " + SIMILARITY_MINIMUM +
 						" 的 " + (beginSize - endSize) + " 对代码被忽略了。\n\n");
 			});
 		}
