@@ -46,8 +46,14 @@ public class JudgeCPlusPlusCode {
 				label.append("Name: " + file.getName() + "\n");
 				/// 彩蛋
 				if (file.getName().equals("李斯威")) label.append("李爷太神啦 我们一起来%他\n");
-				if (file.getName().equals("杨宗翰")) label.append("%%%yzh大神\n");
+				if (file.getName().equals("杨宗翰")) label.append("%%%yzh大神，杨杨得意\n");
 				if (file.getName().equals("胡奕扬")) label.append("那你很棒哦\n");
+				if (file.getName().equals("谭世炜")) label.append("I have a torch, I have a condom, Ah♂, 并蒂莲\n");
+				if (file.getName().equals("吴沂隆")) label.append("吴队长带领我们走向世界\n");
+				if (file.getName().equals("张寅森")) label.append("The weakest OIer of CDFLS\n");
+				if (file.getName().equals("张恩溶")) label.append("我不做大哥好多年 我只想好好爱一回\n");
+				if (file.getName().equals("田韵豪")) label.append("t123yh受到实外学生集体顶礼膜拜\n");
+				if (file.getName().equals("董海辰")) label.append("870380501正在连任\n");
 				for (File f : file.listFiles()) {
 					if (f.getName().endsWith(".txt") ||
 							f.getName().endsWith(".in") ||
