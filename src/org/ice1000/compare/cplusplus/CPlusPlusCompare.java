@@ -28,6 +28,8 @@ public class CPlusPlusCompare implements Compare {
 	private HashSet<String> keyWordSet = new HashSet<>();
 	private LevenshteinDistance levenshteinDistance = new LevenshteinDistance();
 
+	public static final double SIMILARITY_MINIMUM = 0.18;
+
 	@SuppressWarnings("WeakerAccess")
 	public CPlusPlusCompare() {
 		String list[] = keyWords.split("\\|");
@@ -122,6 +124,8 @@ public class CPlusPlusCompare implements Compare {
 		CPlusPlusCompare compare = new CPlusPlusCompare();
 		JTextArea label = new JTextArea();
 		label.setEditable(false);
+		label.setBackground(new Color(0x2B2B2B));
+		label.setForeground(Color.WHITE);
 		HashMap<String, ArrayList<DataHolder>> sources = new HashMap<>();
 		new JFrame("Comparison by ice1000, for C++ only") {{
 			setSize(500, 500);
@@ -161,10 +165,7 @@ public class CPlusPlusCompare implements Compare {
 					sim.add(new SimDataHolder(
 							codes.get(i).name,
 							codes.get(j).name,
-							compare.getSimilarity(
-									codes.get(i).code,
-									codes.get(j).code
-							)
+							compare.getSimilarity(codes.get(i).code, codes.get(j).code)
 					));
 				}
 			}
@@ -176,11 +177,19 @@ public class CPlusPlusCompare implements Compare {
 //						i.name2 + "】 ==> " +
 //						i.sim + "\n");
 //			}
+			int beginSize = sim.size();
+			sim.removeIf(i -> i.sim < SIMILARITY_MINIMUM);
+			int endSize = sim.size();
 			sim.forEach(i -> {
 				label.append("\t【" + i.name1 + ", " + i.name2 + "】 ==> " + i.sim + "\n");
-				if (i.sim >= 0.9999999999) label.append("\t↑请注意这个是测试\n");
+				if (i.sim >= 0.9999999999) label.append("\t↑这个是直接复制的\n");
+				else if (i.sim >= 0.75) label.append("\t↑嗨呀 这两份代码有嫌疑\n");
 			});
+			label.append("  相似度小于 " + SIMILARITY_MINIMUM +
+					" 的 " + (beginSize - endSize) + " 对代码被忽略了。\n\n");
 		});
+
+		label.append("\n\nProgram Complete.\n");
 	}
 
 	/**
