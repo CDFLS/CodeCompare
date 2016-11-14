@@ -28,8 +28,6 @@ public class CPlusPlusCompare implements Compare {
 	private HashSet<String> keyWordSet = new HashSet<>();
 	private LevenshteinDistance levenshteinDistance = new LevenshteinDistance();
 
-	public static final double SIMILARITY_MINIMUM = 0.18;
-
 	@SuppressWarnings("WeakerAccess")
 	public CPlusPlusCompare() {
 		String list[] = keyWords.split("\\|");

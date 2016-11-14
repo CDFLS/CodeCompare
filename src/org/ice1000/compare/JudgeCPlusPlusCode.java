@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import static org.ice1000.compare.cplusplus.CPlusPlusCompare.SIMILARITY_MINIMUM;
-
 /**
  * Created by ice1000 on 2016/11/14.
  *
  * @author ice1000
  */
 public class JudgeCPlusPlusCode {
+
+	public static final double SIMILARITY_MINIMUM = 0.18;
 
 	public static void main(String[] args) throws IOException {
 		CPlusPlusCompare compare = new CPlusPlusCompare();
@@ -46,6 +46,8 @@ public class JudgeCPlusPlusCode {
 				label.append("Name: " + file.getName() + "\n");
 				/// 彩蛋
 				if (file.getName().equals("李斯威")) label.append("李爷太神啦 我们一起来%他\n");
+				if (file.getName().equals("杨宗翰")) label.append("%%%yzh大神\n");
+				if (file.getName().equals("胡奕扬")) label.append("那你很棒哦\n");
 				for (File f : file.listFiles()) {
 					if (f.getName().endsWith(".txt") ||
 							f.getName().endsWith(".in") ||
