@@ -88,23 +88,25 @@ public class JudgeCode {
 						));
 					}
 				}
-//			Collections.sort(sim);
+//				Collections.sort(sim);
 				Collections.sort(sim, (o1, o2) -> (int) (o2.sim * 1000 - o1.sim * 1000));
-//			for (SimDataHolder i : sim) {
-//				label.append("\t【" +
-//						i.name1 + ", " +
-//						i.name2 + "】 ==> " +
-//						i.sim + "\n");
-//			}
+//				for (SimDataHolder i : sim) {
+//					label.append("\t【" +
+//							i.name1 + ", " +
+//							i.name2 + "】 ==> " +
+//							i.sim + "\n");
+//				}
 				int beginSize = sim.size();
 				sim.removeIf(i -> i.sim < SIMILARITY_MINIMUM);
 				int endSize = sim.size();
 				sim.forEach(i -> {
 					label.append("\t\t【" + i.name1 + ", " + i.name2 + "】 ==> " + i.sim + "\n");
-					if (i.sim >= 0.9999999999) label.append("\t\t↑这个是直接复制的\n");
-					else if (i.sim >= 0.75) label.append("\t\t↑嗨呀 这两份代码有嫌疑\n");
+					if (i.sim >= 0.9999999999) label.append("\t\t↑\n\t\t↑这个是直接复制的\n\n");
+					else if (i.sim >= 0.75) label.append("\t\t↑\n\t\t↑嗨呀 这两份代码有嫌疑\n\n");
 				});
-				label.append("\t相似度小于 " + SIMILARITY_MINIMUM +
+				label.append(beginSize == 0
+						? "\t本文件名对应的代码只有一份。作者: " + codes.get(0).name + "\n\n"
+						: "\t相似度小于 " + SIMILARITY_MINIMUM +
 						" 的 " + (beginSize - endSize) + " 对代码被忽略了。\n\n");
 			});
 		}
