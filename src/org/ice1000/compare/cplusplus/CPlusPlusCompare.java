@@ -134,9 +134,8 @@ public class CPlusPlusCompare implements Compare {
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			setVisible(true);
 		}};
-		File[] files = new File("." + File.separator + "source").listFiles();
-		assert files != null;
-		for (File file : files) {
+		for (File file : new File("." + File.separator + "source").listFiles()) {
+			if (file.listFiles() == null) continue;
 			label.append("Name: " + file.getName() + "\n");
 			/// 彩蛋
 			if (file.getName().equals("李斯威")) label.append("李爷太神啦 我们一起来%他\n");
@@ -148,7 +147,6 @@ public class CPlusPlusCompare implements Compare {
 						f.getName().endsWith(".zip")) continue;
 				label.append("\t" + f.getName() + "\n");
 				if (!sources.containsKey(f.getName())) sources.put(f.getName(), new ArrayList<>());
-				System.out.println(compare.getPreprocessedCode(f));
 				sources.get(f.getName()).add(new DataHolder(
 						compare.getPreprocessedCode(f.getAbsolutePath()),
 						file.getName()
@@ -190,6 +188,13 @@ public class CPlusPlusCompare implements Compare {
 		});
 
 		label.append("\n\nProgram Complete.\n");
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(
+				"." + File.separator + "source" + File.separator + "log.txt"))) {
+			writer.write(label.getText());
+			writer.flush();
+			writer.close();
+		} catch (Exception ignored) {
+		}
 	}
 
 	/**
