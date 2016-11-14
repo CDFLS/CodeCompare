@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.*;
 
 public class CPlusPlusCompare implements Compare {
+
 	/**
 	 * C++保留字
 	 */
@@ -122,7 +123,7 @@ public class CPlusPlusCompare implements Compare {
 		JTextArea label = new JTextArea();
 		label.setEditable(false);
 		HashMap<String, ArrayList<DataHolder>> sources = new HashMap<>();
-		new JFrame("Compare by ice1k") {{
+		new JFrame("Comparison by ice1000, for C++ only") {{
 			setSize(500, 500);
 			setLayout(new BorderLayout());
 			add(new JScrollPane(label), BorderLayout.CENTER);
@@ -136,7 +137,11 @@ public class CPlusPlusCompare implements Compare {
 			/// 彩蛋
 			if (file.getName().equals("李斯威")) label.append("李爷太神啦 我们一起来%他\n");
 			for (File f : file.listFiles()) {
-				if (f.getName().equals("log.txt")) continue;
+				if (f.getName().endsWith(".txt") ||
+						f.getName().endsWith(".in") ||
+						f.getName().endsWith(".out") ||
+						f.getName().endsWith(".exe") ||
+						f.getName().endsWith(".zip")) continue;
 				label.append("\t" + f.getName() + "\n");
 				if (!sources.containsKey(f.getName())) sources.put(f.getName(), new ArrayList<>());
 				System.out.println(compare.getPreprocessedCode(f));
@@ -172,11 +177,8 @@ public class CPlusPlusCompare implements Compare {
 //						i.sim + "\n");
 //			}
 			sim.forEach(i -> {
-				label.append("\t【" +
-						i.name1 + ", " +
-						i.name2 + "】 ==> " +
-						i.sim + "\n");
-				if (i.sim >= 0.9999) label.append("\t↑请注意这个是测试\n");
+				label.append("\t【" + i.name1 + ", " + i.name2 + "】 ==> " + i.sim + "\n");
+				if (i.sim >= 0.9999999999) label.append("\t↑请注意这个是测试\n");
 			});
 		});
 	}
