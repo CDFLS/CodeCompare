@@ -1,8 +1,10 @@
 package org.ice1000.compare;
 
-import org.ice1000.compare.cplusplus.CPlusPlusCompare;
-import org.ice1000.compare.data.DataHolder;
+import org.ice1000.compare.core.Compare;
+import org.ice1000.compare.lang.CPlusPlusCompare;
+import org.ice1000.compare.data.NameCodeDataHolder;
 import org.ice1000.compare.data.SimDataHolder;
+import org.ice1000.compare.lang.JavaCompare;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,17 +21,18 @@ import java.util.HashMap;
  *
  * @author ice1000
  */
-public class JudgeCPlusPlusCode {
+public class JudgeCode {
 
 	public static final double SIMILARITY_MINIMUM = 0.18;
 
 	public static void main(String[] args) throws IOException {
-		CPlusPlusCompare compare = new CPlusPlusCompare();
+		Compare cPlusPlusCompare = new CPlusPlusCompare();
+		Compare javaCompare = new JavaCompare();
 		JTextArea label = new JTextArea();
 		label.setEditable(false);
 		label.setBackground(new Color(0x2B2B2B));
 		label.setForeground(Color.WHITE);
-		HashMap<String, ArrayList<DataHolder>> sources = new HashMap<>();
+		HashMap<String, ArrayList<NameCodeDataHolder>> sources = new HashMap<>();
 		new JFrame("Comparison by ice1000, for C++ only") {{
 			setSize(500, 500);
 			setLayout(new BorderLayout());
@@ -55,6 +58,7 @@ public class JudgeCPlusPlusCode {
 				if (file.getName().equals("田韵豪")) label.append("t123yh受到实外学生集体顶礼膜拜\n");
 				if (file.getName().equals("董海辰")) label.append("870380501正在连任\n");
 				for (File f : file.listFiles()) {
+					// ignored file types
 					if (f.getName().endsWith(".txt") ||
 							f.getName().endsWith(".in") ||
 							f.getName().endsWith(".out") ||
@@ -62,24 +66,39 @@ public class JudgeCPlusPlusCode {
 							f.getName().endsWith(".zip")) continue;
 					label.append("\t" + f.getName() + "\n");
 					if (!sources.containsKey(f.getName())) sources.put(f.getName(), new ArrayList<>());
-					sources.get(f.getName()).add(new DataHolder(
-							compare.getPreprocessedCode(f.getAbsolutePath()),
-							file.getName()
-					));
+					if (f.getName().endsWith(".cpp"))
+						sources.get(f.getName()).add(new NameCodeDataHolder(
+								cPlusPlusCompare.getPreprocessedCode(f.getAbsolutePath()),
+								file.getName(),
+								NameCodeDataHolder.LANGUAGE_C_PLUS_PLUS
+						));
+					else if (f.getName().endsWith(".java"))
+						sources.get(f.getName()).add(new NameCodeDataHolder(
+								javaCompare.getPreprocessedCode(f.getAbsolutePath()),
+								file.getName(),
+								NameCodeDataHolder.LANGUAGE_JAVA
+						));
 				}
 			}
 			label.append("\n\n\nComparison result:\n");
 			ArrayList<SimDataHolder> sim = new ArrayList<>();
 			sources.forEach((string, codes) -> {
 				sim.clear();
-				label.append("    Problem :" + string + "\n");
+				label.append("\tFile Name :" + string + "\n");
 				for (int i = 0; i < codes.size(); i++) {
 					for (int j = i + 1; j < codes.size(); j++) {
-						sim.add(new SimDataHolder(
-								codes.get(i).name,
-								codes.get(j).name,
-								compare.getSimilarity(codes.get(i).code, codes.get(j).code)
-						));
+						if (string.endsWith(".cpp"))
+							sim.add(new SimDataHolder(
+									codes.get(i).name,
+									codes.get(j).name,
+									cPlusPlusCompare.getSimilarity(codes.get(i).code, codes.get(j).code)
+							));
+						else if (string.endsWith(".java"))
+							sim.add(new SimDataHolder(
+									codes.get(i).name,
+									codes.get(j).name,
+									javaCompare.getSimilarity(codes.get(i).code, codes.get(j).code)
+							));
 					}
 				}
 //			Collections.sort(sim);
@@ -94,7 +113,7 @@ public class JudgeCPlusPlusCode {
 				sim.removeIf(i -> i.sim < SIMILARITY_MINIMUM);
 				int endSize = sim.size();
 				sim.forEach(i -> {
-					label.append("\t【" + i.name1 + ", " + i.name2 + "】 ==> " + i.sim + "\n");
+					label.append("\t\t【" + i.name1 + ", " + i.name2 + "】 ==> " + i.sim + "\n");
 					if (i.sim >= 0.9999999999) label.append("\t↑这个是直接复制的\n");
 					else if (i.sim >= 0.75) label.append("\t↑嗨呀 这两份代码有嫌疑\n");
 				});

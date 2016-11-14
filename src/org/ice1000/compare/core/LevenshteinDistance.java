@@ -1,4 +1,4 @@
-package org.ice1000.compare.cplusplus;
+package org.ice1000.compare.core;
 
 public class LevenshteinDistance {
 
@@ -10,6 +10,7 @@ public class LevenshteinDistance {
 	 * @param str2 str2
 	 * @return ld
 	 */
+	@SuppressWarnings("WeakerAccess")
 	public int ld(String str1, String str2) {
 		//Distance
 		int[][] d;
@@ -51,6 +52,7 @@ public class LevenshteinDistance {
 	 * @param str2 str2
 	 * @return sim
 	 */
+	@SuppressWarnings("unused")
 	public double sim(String str1, String str2) {
 		int ld = ld(str1, str2);
 		return 1 - (double) ld / Math.max(str1.length(), str2.length());

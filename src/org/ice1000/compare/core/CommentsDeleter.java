@@ -1,4 +1,4 @@
-package org.ice1000.compare.cplusplus;
+package org.ice1000.compare.core;
 
 public class CommentsDeleter {
 	private static final char MARK = '"';
@@ -47,7 +47,7 @@ public class CommentsDeleter {
 	 *
 	 * 写的有问题
 	 */
-	@SuppressWarnings("WeakerAccess")
+	@SuppressWarnings({"WeakerAccess", "unused"})
 	public static String delComments(String _target) {
 		int preType = 0, mark = -1, cur, token = -1;
 		// 输入字符串
