@@ -129,7 +129,7 @@ public class CPlusPlusCompare implements Compare {
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			setVisible(true);
 		}};
-		File[] files = new File("." + File.separator + "AllSubmits").listFiles();
+		File[] files = new File("." + File.separator + "source").listFiles();
 		assert files != null;
 		for (File file : files) {
 			label.append("Name: " + file.getName() + "\n");
