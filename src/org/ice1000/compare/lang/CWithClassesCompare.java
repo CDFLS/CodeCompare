@@ -8,13 +8,13 @@ import java.util.ArrayList;
 /**
  * Hard coded C++ preserved words
  */
-public class CPlusPlusCompare extends AbstractCompare {
+public class CWithClassesCompare extends AbstractCompare {
 
 	/**
 	 * C++保留字
 	 */
-	@SuppressWarnings("FieldCanBeLocal")
-	private String keyWords = "and|asm|auto|bad_cast|bad_typeid" +
+	@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
+	public static final  String keyWords = "and|asm|auto|bad_cast|bad_typeid" +
 			"|bool|break|case|catch|char|class|const|const_cast" +
 			"|char16_t|char32_t|__restrict__|__cdecl|static_assert" +
 			"|continue|default|delete|do|double|dynamic_cast|else" +
@@ -31,7 +31,7 @@ public class CPlusPlusCompare extends AbstractCompare {
 	}
 
 	@SuppressWarnings("WeakerAccess")
-	public CPlusPlusCompare() {
+	public CWithClassesCompare() {
 		super();
 	}
 
@@ -43,7 +43,7 @@ public class CPlusPlusCompare extends AbstractCompare {
 	 */
 	@SuppressWarnings("unused")
 	public static void oldMain() throws IOException {
-		CPlusPlusCompare cmp = new CPlusPlusCompare();
+		CWithClassesCompare cmp = new CWithClassesCompare();
 		File dic = new File(".\\AllSubmits");
 		String names[] = {"1400.cpp", "1410.cpp",};
 		for (String name : names) {

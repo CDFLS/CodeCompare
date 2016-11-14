@@ -8,6 +8,7 @@ package org.ice1000.compare.data;
 public class NameCodeDataHolder {
 	public static final int LANGUAGE_C_PLUS_PLUS = 0x00;
 	public static final int LANGUAGE_JAVA = 0x01;
+	public static final int LANGUAGE_PASCAL = 0x02;
 
 	public String code, name;
 	public int language;

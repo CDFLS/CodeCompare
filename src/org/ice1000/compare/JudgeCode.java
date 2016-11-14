@@ -1,10 +1,8 @@
 package org.ice1000.compare;
 
-import org.ice1000.compare.core.Compare;
-import org.ice1000.compare.lang.CPlusPlusCompare;
+import org.ice1000.compare.core.ComparorChooser;
 import org.ice1000.compare.data.NameCodeDataHolder;
 import org.ice1000.compare.data.SimDataHolder;
-import org.ice1000.compare.lang.JavaCompare;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,8 +24,7 @@ public class JudgeCode {
 	public static final double SIMILARITY_MINIMUM = 0.18;
 
 	public static void main(String[] args) throws IOException {
-		Compare cPlusPlusCompare = new CPlusPlusCompare();
-		Compare javaCompare = new JavaCompare();
+		ComparorChooser comparorChooser = new ComparorChooser();
 		JTextArea label = new JTextArea();
 		label.setEditable(false);
 		label.setBackground(new Color(0x2B2B2B));
@@ -59,25 +56,19 @@ public class JudgeCode {
 				if (file.getName().equals("董海辰")) label.append("870380501正在连任\n");
 				for (File f : file.listFiles()) {
 					// ignored file types
-					if (f.getName().endsWith(".txt") ||
-							f.getName().endsWith(".in") ||
-							f.getName().endsWith(".out") ||
-							f.getName().endsWith(".exe") ||
-							f.getName().endsWith(".zip")) continue;
+					if (!(f.getName().endsWith(".cpp") ||
+							f.getName().endsWith(".c") ||
+							f.getName().endsWith(".pas") ||
+							f.getName().endsWith(".java"))) continue;
 					label.append("\t" + f.getName() + "\n");
 					if (!sources.containsKey(f.getName())) sources.put(f.getName(), new ArrayList<>());
-					if (f.getName().endsWith(".cpp"))
-						sources.get(f.getName()).add(new NameCodeDataHolder(
-								cPlusPlusCompare.getPreprocessedCode(f.getAbsolutePath()),
-								file.getName(),
-								NameCodeDataHolder.LANGUAGE_C_PLUS_PLUS
-						));
-					else if (f.getName().endsWith(".java"))
-						sources.get(f.getName()).add(new NameCodeDataHolder(
-								javaCompare.getPreprocessedCode(f.getAbsolutePath()),
-								file.getName(),
-								NameCodeDataHolder.LANGUAGE_JAVA
-						));
+					sources.get(f.getName()).add(new NameCodeDataHolder(
+							comparorChooser
+									.chooseCompare(f.getName())
+									.getPreprocessedCode(f.getAbsolutePath()),
+							file.getName(),
+							comparorChooser.chooseLanguage(f.getName())
+					));
 				}
 			}
 			label.append("\n\n\nComparison result:\n");
@@ -87,18 +78,13 @@ public class JudgeCode {
 				label.append("\tFile Name :" + string + "\n");
 				for (int i = 0; i < codes.size(); i++) {
 					for (int j = i + 1; j < codes.size(); j++) {
-						if (string.endsWith(".cpp"))
-							sim.add(new SimDataHolder(
-									codes.get(i).name,
-									codes.get(j).name,
-									cPlusPlusCompare.getSimilarity(codes.get(i).code, codes.get(j).code)
-							));
-						else if (string.endsWith(".java"))
-							sim.add(new SimDataHolder(
-									codes.get(i).name,
-									codes.get(j).name,
-									javaCompare.getSimilarity(codes.get(i).code, codes.get(j).code)
-							));
+						sim.add(new SimDataHolder(
+								codes.get(i).name,
+								codes.get(j).name,
+								comparorChooser
+										.chooseCompare(string)
+										.getSimilarity(codes.get(i).code, codes.get(j).code)
+						));
 					}
 				}
 //			Collections.sort(sim);
