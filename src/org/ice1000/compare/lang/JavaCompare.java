@@ -1,13 +1,13 @@
 package org.ice1000.compare.lang;
 
-import org.ice1000.compare.core.AbstractCompare;
+import org.ice1000.compare.core.CompareImpl;
 
 /**
  * Created by ice1000 on 2016/11/14.
  *
  * @author ice1000
  */
-public class JavaCompare extends AbstractCompare {
+public class JavaCompare extends CompareImpl {
 
 	@SuppressWarnings("WeakerAccess")
 	public static final String preservedWords = "const|goto|friendly|sizeof|abstract|assert" +

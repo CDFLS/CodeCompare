@@ -3,6 +3,7 @@ package org.ice1000.compare.core;
 import java.io.File;
 import java.io.IOException;
 
+@SuppressWarnings("WeakerAccess")
 public interface Compare {
 	/**
 	 * returns the preprocessed code

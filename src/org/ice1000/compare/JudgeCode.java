@@ -21,6 +21,7 @@ import java.util.HashMap;
  */
 public class JudgeCode {
 
+	@SuppressWarnings("WeakerAccess")
 	public static final double SIMILARITY_MINIMUM = 0.18;
 
 	public static void main(String[] args) throws IOException {

@@ -1,6 +1,6 @@
 package org.ice1000.compare.lang;
 
-import org.ice1000.compare.core.AbstractCompare;
+import org.ice1000.compare.core.CompareImpl;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Hard coded C++ preserved words
  */
-public class CppCompare extends AbstractCompare {
+public class CppCompare extends CompareImpl {
 
 	/**
 	 * C++保留字

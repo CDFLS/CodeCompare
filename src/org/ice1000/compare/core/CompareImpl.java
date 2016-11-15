@@ -9,15 +9,16 @@ import java.util.HashSet;
  *
  * @author ice1000
  */
-public abstract class AbstractCompare implements Compare {
+public abstract class CompareImpl implements Compare {
 	@SuppressWarnings("WeakerAccess")
 	public abstract String getPreservedWords();
 
 	private HashSet<String> keyWordSet = new HashSet<>();
+	@SuppressWarnings("SpellCheckingInspection")
 	private LevenshteinDistance levenshteinDistance = new LevenshteinDistance();
 
 	@SuppressWarnings("WeakerAccess")
-	public AbstractCompare() {
+	public CompareImpl() {
 		Collections.addAll(keyWordSet, getPreservedWords().split("\\|"));
 	}
 
@@ -61,7 +62,7 @@ public abstract class AbstractCompare implements Compare {
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 		StringBuilder buf = new StringBuilder();
 		while ((line = br.readLine()) != null) buf.append(line).append("\n");
-//		删除所有注释
+//		FIXME 删除所有注释
 //		code = CommentsDeleter.delComments(buf.toString());
 		code = buf.toString();
 		int pos1 = 0, pos2 = 0;

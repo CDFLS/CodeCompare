@@ -1,9 +1,6 @@
 package org.ice1000.compare.core;
 
-import org.ice1000.compare.lang.CppCompare;
-import org.ice1000.compare.lang.JavaCompare;
-import org.ice1000.compare.lang.PascalCompare;
-import org.ice1000.compare.lang.PythonCompare;
+import org.ice1000.compare.lang.*;
 
 /**
  * Created by ice1000 on 2016/11/14.
@@ -15,17 +12,20 @@ public class ComparorChooser {
 	private static final String LANGUAGE_JAVA = "Java";
 	private static final String LANGUAGE_PASCAL = "Pascal";
 	private static final String LANGUAGE_PYTHON = "Python";
+	private static final String LANGUAGE_RUBY = "Ruby";
 
 	private Compare cppCompare;
 	private Compare javaCompare;
 	private Compare pasCompare;
 	private Compare pyCompare;
+	private Compare rbCompare;
 
 	public ComparorChooser() {
 		cppCompare = new CppCompare();
 		javaCompare = new JavaCompare();
 		pasCompare = new PascalCompare();
 		pyCompare = new PythonCompare();
+		rbCompare = new RubyCompare();
 	}
 
 	public Compare chooseCompare(String path) {
@@ -37,6 +37,8 @@ public class ComparorChooser {
 			return pasCompare;
 		else if (path.endsWith(".py"))
 			return pyCompare;
+		else if (path.endsWith(".rb"))
+			return rbCompare;
 		else throw new RuntimeException("");
 	}
 
@@ -49,6 +51,8 @@ public class ComparorChooser {
 			return LANGUAGE_PASCAL;
 		else if (path.endsWith(".py"))
 			return LANGUAGE_PYTHON;
+		else if (path.endsWith(".rb"))
+			return LANGUAGE_RUBY;
 		else throw new RuntimeException("");
 	}
 }

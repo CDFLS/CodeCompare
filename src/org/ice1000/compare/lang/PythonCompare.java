@@ -1,13 +1,13 @@
 package org.ice1000.compare.lang;
 
-import org.ice1000.compare.core.AbstractCompare;
+import org.ice1000.compare.core.CompareImpl;
 
 /**
  * Created by ice1000 on 2016/11/14.
  *
  * @author ice1000
  */
-public class PythonCompare extends AbstractCompare {
+public class PythonCompare extends CompareImpl {
 	@SuppressWarnings("WeakerAccess")
 	public static final String preservedWords = "and|as|assert" +
 			"|break|class|continue|def|del|elif|else|except" +
