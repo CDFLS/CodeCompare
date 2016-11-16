@@ -14,16 +14,18 @@ public class CppCompare extends CompareImpl {
 	 * C++保留字
 	 */
 	@SuppressWarnings({"FieldCanBeLocal", "WeakerAccess"})
-	public static final  String keyWords = "and|asm|auto|bad_cast|bad_typeid" +
+	public static final  String keyWords = "and|asm|auto|and_eq" +
+			"|bad_cast|bad_typeid|bitand|bitor|or_eq" +
 			"|bool|break|case|catch|char|class|const|const_cast" +
 			"|char16_t|char32_t|__restrict__|__cdecl|static_assert" +
 			"|continue|default|delete|do|double|dynamic_cast|else" +
 			"|enum|except|explicit|extern|false|finally|float|for" +
 			"|friend|goto|if|inline|int|long|mutable|namespace|new" +
-			"|operator|or|private|protected|public|register|reinterpret_cast" +
+			"|operator|or|private|protected|public|reinterpret_cast" +
 			"|return|short|signed|sizeof|static|static_cast|struct" +
 			"|switch|template|this|throw|true|try|type_info|typedef" +
-			"|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while";
+			"|typeid|typename|union|unsigned|using|virtual|void" +
+			"|volatile|wchar_t|while|xor|xor_eq|register";
 
 	@Override
 	public String getPreservedWords() {
